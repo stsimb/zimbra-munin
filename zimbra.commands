@@ -1,0 +1,9 @@
+countObjects userAccount
+countObjects account
+countObjects alias
+countObjects dl
+countObjects domain
+countObjects cos
+countObjects server
+countObjects calresource
+getDomain zimbra.gr zimbraAggregateQuotaLastUsage

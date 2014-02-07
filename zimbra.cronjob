@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ZMPROV="/opt/zimbra/bin/zmprov"
+IF="/opt/zimbra/data/munin/zmprov.commands"
+OF="/opt/zimbra/data/munin/zmprov.values"
+TF=$(mktemp)
+
+${ZMPROV} -v -f ${IF} | sed '$!N;s/\n/ /' > ${TF}
+
+mv ${TF} ${OF}

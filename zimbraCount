@@ -1,0 +1,27 @@
+#!/bin/sh
+# number of zimbra objects, as reported by zmprov cronjob
+# stsimb nov 2013
+OBJECTS="userAccount account alias dl domain cos server calresource"
+
+if [ "$1" = "config" ]; then
+        echo "graph_title Zimbra Object Count"
+        echo 'graph_category Zimbra'
+        echo 'graph_vlabel count'
+        echo 'graph_scale no'
+#       echo 'graph_args --base 1000 --logarithmic'
+        for obj in ${OBJECTS} ; do
+                echo "${obj}.label ${obj} objects"
+                echo "${obj}.info Number of ${obj} objects"
+        done
+        exit 0
+fi;
+
+for obj in ${OBJECTS} ; do
+        printf "${obj}.value "
+        value=$(grep ${obj} /opt/zimbra/data/munin/zmprov.values | awk '{print $4}')
+        if [ "${value}x" != "x" ]; then
+                echo ${value}
+        else
+                echo U
+        fi
+done

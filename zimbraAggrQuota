@@ -1,0 +1,19 @@
+#!/bin/sh
+# zimbra Aggregate Quota as reported by zmprov
+# stsimb Nov 2013
+
+if [ "$1" = "config" ]; then
+        echo "graph_title Zimbra Aggregate Quota Usage"
+        echo 'graph_vlabel bytes'
+        echo 'graph_category Zimbra'
+        echo 'aggrquota.info Zimbra Aggregate Quota Usage in bytes'
+        echo 'aggrquota.label Aggregate Quota Usage'
+        exit 0
+fi;
+
+printf "aggrquota.value "
+if [ -f /opt/zimbra/data/munin/zmprov.values ] ; then
+        grep zimbraAggregateQuotaLastUsage: /opt/zimbra/data/munin/zmprov.values | awk '{print $2}'
+else
+        echo U
+fi
